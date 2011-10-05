@@ -21,10 +21,10 @@
 
 $plugin_info = array(
 	'pi_name' => 'Tally',
-	'pi_version' => '1.0',
+	'pi_version' => '1.0.1',
 	'pi_author' => 'Derek Hogue',
 	'pi_author_url' => 'http://amphibian.info',
-	'pi_description' => 'Tally numbers in an entries loop.',
+	'pi_description' => 'Tally or average numbers in an entries loop.',
 	'pi_usage' => Tally::usage()
 );
 
@@ -65,11 +65,33 @@ class Tally
 		}
 	}
 
+
+	function average()
+	{
+		global $SESS, $TMPL;
+		// This tag must be called from an embedded template
+		$collection =($TMPL->fetch_param('collection') != '') ? $TMPL->fetch_param('collection') : FALSE;
+		$decimals = ($TMPL->fetch_param('decimals') != '') ? $TMPL->fetch_param('decimals') : 2;
+		$point = ($TMPL->fetch_param('point') != '') ? $TMPL->fetch_param('point') : ".";
+		$thousands = ($TMPL->fetch_param('thousands') != '') ? $TMPL->fetch_param('thousands') : ",";
+		
+		if(isset($collection) && isset($SESS->cache['tally'][$collection]))
+		{
+			return number_format(
+				(array_sum($SESS->cache['tally'][$collection])/count($SESS->cache['tally'][$collection])), 
+				$decimals, 
+				$point, 
+				$thousands
+			);
+		}
+	}
+	
+
 	function usage() {
   		ob_start(); 
 	?>
 
-	Tally has two tags: {exp:tally:add} and {exp:tally:total}.
+	Tally has three tags: {exp:tally:add}, {exp:tally:total} and {exp:tally:average}.
 	
 	Run {exp:tally:add} wherever you'd like to add a number to the ongoing total for a particular collection. The tag accepts three required parameters:
 	
@@ -79,11 +101,11 @@ class Tally
 	
 	--
 	
-	The {exp:tally:total} tag must be included on your page in an embedded template. This allows it to be processed last, after all of your entries loops have run, saving all of your added values.
+	The {exp:tally:total} and {exp:tally:average} tags must be included on your page in an embedded template. This allows them to be processed last, after all of your entries loops have run, saving all of your values.
 	
-	{exp:tally:total} accepts four parameters:
+	These tags accepts four parameters:
 	
-	"collection" - the name of the collection whose values you want to add
+	"collection" - the name of the collection whose values you want to add or average
 	"decimals" - the number of decimal places to display (defaults to 2)
 	"point" - character to use as a decimal separator (defaults to ".")
 	"thousands" - character to use as a thousands separator (defaults to ",")
