@@ -2,7 +2,7 @@
 
 ##Usage
 
-Tally has two tags: `{exp:tally:add}` and `{exp:tally:total}`.
+Tally has three tags: `{exp:tally:add}`, `{exp:tally:total}` and `{exp:tally:average}`.
 
 Run `{exp:tally:add}` wherever you'd like to add a number to the ongoing total for a particular collection. The tag accepts three required parameters:
 
@@ -12,11 +12,11 @@ Run `{exp:tally:add}` wherever you'd like to add a number to the ongoing total f
 
 --
 
-The `{exp:tally:total}` tag must be included on your page in an embedded template. This allows it to be processed last, after all of your entries loops have run, saving all of your added values.
+The `{exp:tally:total}` and `{exp:tally:average}` tags must be included on your page in an embedded template. This allows it to be processed last, after all of your entries loops have run, saving all of your values.
 
-`{exp:tally:total}` accepts four parameters:
+These tags accept four parameters:
 
-- `collection` - the name of the collection whose values you want to add
+- `collection` - the name of the collection whose values you want to add or average
 - `decimals` - the number of decimal places to display (defaults to 2)
 - `point` - character to use as a decimal separator (defaults to ".")
 - `thousands` - character to use as a thousands separator (defaults to ",")
