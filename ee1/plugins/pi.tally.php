@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 	'pi_name' => 'Tally',
-	'pi_version' => '1.0.1',
+	'pi_version' => '1.0.2',
 	'pi_author' => 'Derek Hogue',
 	'pi_author_url' => 'http://amphibian.info',
 	'pi_description' => 'Tally or average numbers in an entries loop.',
@@ -40,7 +40,7 @@ class Tally
 		$value = $TMPL->fetch_param('value');
 		if($collection != '' && $value != '')
 		{
-			$SESS->cache['tally'][$collection][] = floatval($value);			
+			$SESS->cache['tally'][$collection][] = $this->_float($value);	
 		}
 	}
 	
@@ -85,7 +85,27 @@ class Tally
 			);
 		}
 	}
+
 	
+	function _float($str)
+	{
+		// http://www.php.net/manual/en/function.floatval.php#43262
+		if(strstr($str, ","))
+		{ 
+	    	$str = str_replace(".", "", $str);
+	    	$str = str_replace(",", ".", $str);
+	  	} 
+	  
+	  	if(preg_match("#([0-9\.]+)#", $str, $match))
+	  	{  
+	    	return floatval($match[0]); 
+	  	}
+	  	else
+	  	{ 
+	    	return floatval($str); 
+	  	}
+	}	
+
 
 	function usage() {
   		ob_start(); 

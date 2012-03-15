@@ -39,10 +39,10 @@ class Tally
 	function add()
 	{
 		$collection = $this->EE->TMPL->fetch_param('collection');
-		$value = $this->_float($this->EE->TMPL->fetch_param('value'));
+		$value = $this->EE->TMPL->fetch_param('value');
 		if($collection != '' && $value != '')
 		{
-			$this->EE->session->cache['tally'][$collection][] = floatval($value);			
+			$this->EE->session->cache['tally'][$collection][] = $this->_float($value);			
 		}
 	}
 	
