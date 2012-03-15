@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 	'pi_name' => 'Tally',
-	'pi_version' => '1.0.1',
+	'pi_version' => '1.0.2',
 	'pi_author' => 'Derek Hogue',
 	'pi_author_url' => 'http://amphibian.info',
 	'pi_description' => 'Tally or average numbers in an entries loop.',
@@ -39,7 +39,7 @@ class Tally
 	function add()
 	{
 		$collection = $this->EE->TMPL->fetch_param('collection');
-		$value = $this->EE->TMPL->fetch_param('value');
+		$value = $this->_float($this->EE->TMPL->fetch_param('value'));
 		if($collection != '' && $value != '')
 		{
 			$this->EE->session->cache['tally'][$collection][] = floatval($value);			
@@ -83,6 +83,25 @@ class Tally
 				$thousands
 			);
 		}
+	}
+	
+	function _float($str)
+	{
+		// http://www.php.net/manual/en/function.floatval.php#43262
+		if(strstr($str, ","))
+		{ 
+	    	$str = str_replace(".", "", $str);
+	    	$str = str_replace(",", ".", $str);
+	  	} 
+	  
+	  	if(preg_match("#([0-9\.]+)#", $str, $match))
+	  	{  
+	    	return floatval($match[0]); 
+	  	}
+	  	else
+	  	{ 
+	    	return floatval($str); 
+	  	}
 	}
 
 	function usage() {
