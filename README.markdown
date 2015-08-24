@@ -21,6 +21,8 @@ These tags accept four parameters:
 - `point` - character to use as a decimal separator (defaults to ".")
 - `thousands` - character to use as a thousands separator (defaults to ",")
 
+If used as single tags, these two tags will directly return your total or average. If used as a tag pair, the value will be returned in the `{tally_total}` or `{tally_average}` variables respectively.
+
 --
 
 Here's an example of using Tally to display a total of orders placed on your e-commerce EE site:

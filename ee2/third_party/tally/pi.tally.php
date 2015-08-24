@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 	'pi_name' => 'Tally',
-	'pi_version' => '1.0.2',
+	'pi_version' => '1.0.3',
 	'pi_author' => 'Derek Hogue',
 	'pi_author_url' => 'http://amphibian.info',
 	'pi_description' => 'Tally or average numbers in an entries loop.',
@@ -57,12 +57,20 @@ class Tally
 		
 		if(isset($collection) && isset($this->EE->session->cache['tally'][$collection]))
 		{
-			return number_format(
+			$total = number_format(
 				array_sum($this->EE->session->cache['tally'][$collection]), 
 				$decimals, 
 				$point, 
 				$thousands
 			);
+			if(empty($this->EE->TMPL->tagdata))
+			{
+				return $total;
+			}
+			else
+			{
+				return $this->EE->TMPL->parse_variables_row($this->EE->TMPL->tagdata, array('tally_total' => $total));
+			}
 		}
 	}
 
@@ -76,12 +84,15 @@ class Tally
 		
 		if(isset($collection) && isset($this->EE->session->cache['tally'][$collection]))
 		{
-			return number_format(
-				(array_sum($this->EE->session->cache['tally'][$collection])/count($this->EE->session->cache['tally'][$collection])), 
-				$decimals, 
-				$point, 
-				$thousands
-			);
+			$average = number_format((array_sum($this->EE->session->cache['tally'][$collection])/count($this->EE->session->cache['tally'][$collection])), $decimals, $point, $thousands);
+			if(empty($this->EE->TMPL->tagdata))
+			{
+				return $average;
+			}
+			else
+			{
+				return $this->EE->TMPL->parse_variables_row($this->EE->TMPL->tagdata, array('tally_average' => $average));
+			}
 		}
 	}
 	
