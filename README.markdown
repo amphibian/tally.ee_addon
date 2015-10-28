@@ -1,4 +1,4 @@
-**Tally is a simple plugin for ExpressionEngine 1 and 2 which allows you to calculate totals for numeric values in an entries loop.** A common use for this would be calculating order totals for the month from your e-commerce orders channel, or adding other financial data spreadsheet-style.
+**Tally is a simple plugin for ExpressionEngine 1, 2, and 3 which allows you to calculate totals and averages for numeric values in an entries loop.** A common use for this would be calculating order totals for the month from your e-commerce orders channel, or adding other financial data spreadsheet-style.
 
 ##Usage
 
