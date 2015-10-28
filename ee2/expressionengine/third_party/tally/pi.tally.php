@@ -115,7 +115,7 @@ class Tally
 	  	}
 	}
 
-	function usage() {
+	static function usage() {
   		ob_start(); 
 	?>
 
