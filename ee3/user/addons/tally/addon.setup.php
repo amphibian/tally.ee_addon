@@ -3,7 +3,7 @@
 return array(
       'author' => 'Amphibian',
       'author_url' => 'http://amphibian.info',
-      'description' => 'This plugin mainly converts double and single quotes to curly entities, but it also converts em-dashes, double spaces, and ampersands.',
+      'description' => 'Tally or average numbers in an entries loop..',
       'docs_url' => 'https://github.com/amphibian/tally.ee_addon',
       'name' => 'Tally',
       'namespace' => 'Amphibian\Tally',
