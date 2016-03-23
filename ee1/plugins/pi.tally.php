@@ -21,7 +21,7 @@
 
 $plugin_info = array(
 	'pi_name' => 'Tally',
-	'pi_version' => '1.0.2',
+	'pi_version' => '1.0.4',
 	'pi_author' => 'Derek Hogue',
 	'pi_author_url' => 'http://amphibian.info',
 	'pi_description' => 'Tally or average numbers in an entries loop.',
@@ -96,7 +96,7 @@ class Tally
 	    	$str = str_replace(",", ".", $str);
 	  	} 
 	  
-	  	if(preg_match("#([0-9\.]+)#", $str, $match))
+	  	if(preg_match("#((-)?[0-9\.]+)#", $str, $match))
 	  	{  
 	    	return floatval($match[0]); 
 	  	}

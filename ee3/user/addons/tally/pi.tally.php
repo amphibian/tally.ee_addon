@@ -91,7 +91,7 @@ class Tally
 	    	$str = str_replace(",", ".", $str);
 	  	} 
 	  
-	  	if(preg_match("#([0-9\.]+)#", $str, $match))
+	  	if(preg_match("#((-)?[0-9\.]+)#", $str, $match))
 	  	{  
 	    	return floatval($match[0]); 
 	  	}
